@@ -23,6 +23,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useSupabaseWorkouts } from '@/hooks/useSupabaseWorkouts';
 import { getLevelProgress } from '@/hooks/useSupabaseGamification';
 import XPProgressBar from '@/components/XPProgressBar';
+import AnimatedLightningBolt from '@/components/AnimatedLightningBolt';
 
 export default function ProgressScreen() {
   const { profile } = useAuth();
@@ -199,8 +200,15 @@ export default function ProgressScreen() {
       >
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.headerTitle}>Progress</Text>
-          <Text style={styles.headerSubtitle}>Track your fitness journey</Text>
+          <View style={styles.headerText}>
+            <Text style={styles.headerTitle}>Progress</Text>
+            <Text style={styles.headerSubtitle}>
+              Track your fitness journey
+            </Text>
+          </View>
+          <View style={styles.boltContainer}>
+            <AnimatedLightningBolt level={levelProgress.level} size="large" />
+          </View>
         </View>
 
         {/* XP Progress */}
@@ -283,7 +291,7 @@ export default function ProgressScreen() {
               {profile?.longest_streak &&
               profile.longest_streak > (profile?.current_streak || 0) ? (
                 <Text style={styles.bestStreak}>
-                                      Best: {String(profile.longest_streak)}
+                  Best: {String(profile.longest_streak)}
                 </Text>
               ) : null}
               <Text style={styles.streakDescription}>
@@ -310,6 +318,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 10,
     paddingBottom: 20,
+    alignItems: 'center',
+  },
+  headerText: {
+    alignItems: 'center',
+    marginBottom: 16,
   },
   headerTitle: {
     fontSize: 28,
@@ -320,6 +333,11 @@ const styles = StyleSheet.create({
   headerSubtitle: {
     fontSize: 16,
     color: '#94A3B8',
+  },
+  boltContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 8,
   },
   xpSection: {
     paddingHorizontal: 20,
